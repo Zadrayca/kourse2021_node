@@ -15,41 +15,37 @@ const inPersonUsers = [
 const path1 = path.join(__dirname, 'main', 'online', 'file1.txt');
 const path2 = path.join(__dirname, 'main', 'inPerson', 'file2.txt');
 
-
 fs.mkdir(path.join(__dirname, 'main', 'online'), {recursive: true}, (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            onlineUsers.forEach(user => {
-                    for (const key in user) {
-                        fs.writeFile(path1, key + ': ' + user[key] + '\n', {flag: 'a'}, (err) => {
-                            if (err) {
-                                console.log(err);
-                                throw err;
-                            }
-                        });
-                    }
-                })
+    if (err) {
+        console.log(err);
+    }
+    onlineUsers.forEach(user => {
+        for (const key in user) {
+            fs.writeFile(path1, key + ': ' + user[key] + '\n', {flag: 'a'}, (err) => {
+                if (err) {
+                    console.log(err);
+                    throw err;
+                }
+            });
         }
-    });
+    })
+});
 
 fs.mkdir(path.join(__dirname, 'main', 'inPerson'), {recursive: true}, (err) => {
     if (err) {
         console.log(err);
-    } else{
-        inPersonUsers.forEach(user => {
-            for (const key in user) {
-                fs.writeFile(path2, key + ': ' + user[key] + '\n', {flag: 'a'}, (err) => {
-                    if (err) {
-                        console.log(err);
-                        throw err;
-                    } else {
-                        exchange();
-                    }
-                });
-            }
-        })
     }
+    inPersonUsers.forEach(user => {
+        for (const key in user) {
+            fs.writeFile(path2, key + ': ' + user[key] + '\n', {flag: 'a'}, (err) => {
+                if (err) {
+                    console.log(err);
+                    throw err;
+                }
+                exchange();
+            });
+        }
+    })
 });
 
 const exchange = () => {
@@ -59,7 +55,7 @@ const exchange = () => {
                 console.log(err);
                 throw err;
             }
-            console.log(data)
+            console.log(data);
 
             fs.readFile(path1, 'utf8',
                 (err, data2) => {
@@ -67,8 +63,7 @@ const exchange = () => {
                         console.log(err);
                         throw err;
                     }
-                    console.log(data2)
-
+                    console.log(data2);
 
                     fs.writeFile(path1, data, {flag: 'w'}, (err) => {
                         if (err) {
@@ -83,9 +78,6 @@ const exchange = () => {
                             throw err;
                         }
                     });
-
-
                 });
-
         });
-}
+};
